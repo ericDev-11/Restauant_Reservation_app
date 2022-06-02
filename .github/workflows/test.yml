@@ -26,9 +26,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - working-directory: ./front-end
-    - run: pwd
-    - run: ls -al
-    - run: npm run test:1:frontend
-    - working-directory: ./back-end
-    - run: npm run test:1:backend
+    - run: |
+        pwd
+        cd front-end
+        npm run test:1:frontend
