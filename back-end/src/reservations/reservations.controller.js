@@ -17,7 +17,7 @@ const has_valid_time = hasValidType("reservation_time");
 const has_valid_num = hasValidType("people");
 
 async function list(req, res) {
-  const date = req.query.date || asDateString(new Date());
+  const date = req.query.date || new Date().toDateString();
   const data = await service.list(date);
   res.json({ data });
 }

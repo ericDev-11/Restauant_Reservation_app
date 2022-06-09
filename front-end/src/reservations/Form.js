@@ -1,36 +1,8 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { createReservation } from "../utils/api";
 
-export default function Form({
-  reservation,
-  setReservation,
-  reservationsError,
-  setReservationsError,
-}) {
+export default function Form({ form, handleChange, handleSubmit }) {
   const history = useHistory();
-
-  const handleChange = ({ target }) => {
-    setReservation({
-      ...reservation,
-      [target.name]: target.value,
-    });
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    newReservation();
-    if (reservationsError === null) {
-      history.push(`/dashboard?date=${reservation.reservation_date}`);
-    }
-  };
-
-  function newReservation() {
-    const ac = new AbortController();
-    setReservationsError(null);
-    createReservation(reservation, ac.signal).catch(setReservationsError);
-    return () => ac.abort();
-  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -43,7 +15,7 @@ export default function Form({
             type="text"
             required
             onChange={handleChange}
-            value={reservation.first_name}
+            value={form.first_name}
             className="form-control"
             style={{ width: "100%" }}
           />
@@ -56,7 +28,7 @@ export default function Form({
             type="text"
             required
             onChange={handleChange}
-            value={reservation.last_name}
+            value={form.last_name}
             className="form-control"
             style={{ width: "100%" }}
           />
@@ -70,7 +42,7 @@ export default function Form({
             required
             placeholder="XXX-XXX-XXXX"
             onChange={handleChange}
-            value={reservation.mobile_number}
+            value={form.mobile_number}
             className="form-control"
             style={{ width: "100%" }}
           />
@@ -87,7 +59,7 @@ export default function Form({
             pattern="\d{4}-\d{2}-\d{2}"
             placeholder="YYYY-MM-DD"
             onChange={handleChange}
-            value={reservation.reservation_date}
+            value={form.reservation_date}
             className="form-control"
             style={{ width: "100%" }}
           />
@@ -102,7 +74,7 @@ export default function Form({
             pattern="[0-9]{2}:[0-9]{2}"
             placeholder="HH:MM"
             onChange={handleChange}
-            value={reservation.reservation_time}
+            value={form.reservation_time}
             className="form-control"
             style={{ width: "100%" }}
           />
@@ -115,7 +87,7 @@ export default function Form({
             type="number"
             required
             onChange={handleChange}
-            value={reservation.people}
+            value={form.people}
             className="form-control"
             style={{ width: "100%" }}
           />
